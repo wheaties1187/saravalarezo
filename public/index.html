@@ -688,15 +688,32 @@
         gap: 24px;
         border-bottom: 0.5px solid var(--color-blush);
       }
-      .nav-links.open li:last-child a {
-        display: inline-block;
-        padding: 12px 24px;
-        border: 1px solid var(--color-black);
-      }
       .about-grid { grid-template-columns: 1fr; gap: 40px; }
       .gallery-grid { grid-template-columns: repeat(2, 1fr); }
       .gallery-item.tall { grid-row: span 1; }
       .gallery-item.wide { grid-column: span 1; }
+      nav {
+        background: rgba(255,255,255,0.92) !important;
+        backdrop-filter: blur(8px) !important;
+        border-bottom-color: var(--color-blush) !important;
+      }
+      .nav-links a { color: var(--color-black) !important; }
+      .nav-cta { border-color: var(--color-black) !important; color: var(--color-black) !important; }
+      .nav-hamburger span { background: var(--color-black); }
+      .nav-logo img { content: url('/assets/logo-monogram.png'); }
+      .footer-top {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      .footer-links {
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+      }
+      .footer-social { justify-content: center; }
+      .footer-bottom { justify-content: center; flex-direction: column; text-align: center; }
     }
   </style>
 </head>
@@ -712,6 +729,7 @@
       <li><a href="#services">Services</a></li>
       <li><a href="#gallery">Gallery</a></li>
       <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#booking">Book Now</a></li>
     </ul>
     <a href="#booking" class="nav-cta nav-cta-desktop">Book Now</a>
     <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu">
@@ -971,6 +989,8 @@
           <a href="#services">Services</a>
           <a href="#gallery">Gallery</a>
           <a href="#pricing">Pricing</a>
+          <a href="#testimonials">Testimonials</a>
+          <a href="#faq">FAQ</a>
           <a href="#booking">Book</a>
         </div>
         <div class="footer-social">
