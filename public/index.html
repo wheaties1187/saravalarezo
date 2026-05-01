@@ -70,14 +70,15 @@
       position: fixed;
       top: 0; left: 0; right: 0;
       height: var(--nav-height);
-      background: rgba(255,255,255,0.94);
-      backdrop-filter: blur(8px);
-      border-bottom: 0.5px solid var(--color-blush);
+      background: rgba(255,255,255,0);
+      backdrop-filter: blur(0px);
+      border-bottom: 0.5px solid transparent;
       display: grid;
       grid-template-columns: 1fr auto 1fr;
       align-items: center;
       padding: 0 5%;
       z-index: 100;
+      transition: background 0.3s, backdrop-filter 0.3s, border-color 0.3s, box-shadow 0.3s;
     }
     .nav-logo { justify-self: start; }
     #nav-links { justify-self: center; }
@@ -87,7 +88,9 @@
       width: auto;
     }
     nav.scrolled {
-      border-bottom-color: transparent;
+      background: rgba(255,255,255,0.87);
+      backdrop-filter: blur(8px);
+      border-bottom-color: var(--color-blush);
       box-shadow: 0 1px 20px rgba(0,0,0,0.08);
     }
     .nav-links {
@@ -101,24 +104,34 @@
       font-weight: 500;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--color-black) !important;
-      opacity: 0.7;
-      transition: opacity 0.2s;
+      color: var(--color-white) !important;
+      opacity: 0.85;
+      transition: opacity 0.2s, color 0.3s;
     }
     .nav-links a:hover { opacity: 1; }
+    nav.scrolled .nav-links a { color: var(--color-black) !important; opacity: 0.7; }
+    nav.scrolled .nav-links a:hover { opacity: 1; }
     .nav-cta {
       font-size: 12px;
       font-weight: 500;
       letter-spacing: 0.12em;
       text-transform: uppercase;
       padding: 10px 22px;
-      border: 1px solid var(--color-black);
-      color: var(--color-black);
+      border: 1px solid var(--color-white);
+      color: var(--color-white);
       background: transparent;
       cursor: pointer;
-      transition: background 0.2s, color 0.2s;
+      transition: background 0.2s, color 0.2s, border-color 0.3s;
     }
     .nav-cta:hover {
+      background: var(--color-white);
+      color: var(--color-black);
+    }
+    nav.scrolled .nav-cta {
+      border-color: var(--color-black);
+      color: var(--color-black);
+    }
+    nav.scrolled .nav-cta:hover {
       background: var(--color-black);
       color: var(--color-white);
     }
@@ -692,7 +705,7 @@
   <!-- NAV -->
   <nav>
     <a href="#hero" class="nav-logo">
-      <img src="/assets/logo-monogram.png" alt="Sara Valarezo" />
+      <img src="/assets/logo-monogram-white.png" alt="Sara Valarezo" />
     </a>
     <ul class="nav-links" id="nav-links">
       <li><a href="#about">About</a></li>
@@ -811,7 +824,7 @@
         <div class="pricing-card">
           <p class="pricing-tag">Everyday Glam</p>
           <h3>Social Makeup</h3>
-          <div class="pricing-price"><sup>$</sup>120</div>
+          <div class="pricing-price"><sup>$</sup>150</div>
           <p class="pricing-from">Starting from</p>
           <div class="pricing-divider"></div>
           <ul class="pricing-features">
@@ -977,10 +990,13 @@
   </footer>
 
   <script>
-    // Nav scroll shadow
+    // Nav scroll shadow + logo swap
     const nav = document.querySelector('nav');
+    const navLogo = document.querySelector('.nav-logo img');
     window.addEventListener('scroll', () => {
-      nav.classList.toggle('scrolled', window.scrollY > 20);
+      const scrolled = window.scrollY > 20;
+      nav.classList.toggle('scrolled', scrolled);
+      navLogo.src = scrolled ? '/assets/logo-monogram.png' : '/assets/logo-monogram-white.png';
     });
 
     // Mobile nav toggle
