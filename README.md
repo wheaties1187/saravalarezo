@@ -67,14 +67,16 @@ Then open [http://localhost:3000](http://localhost:3000).
 | Infrastructure | ✅ Complete | Railway live, DNS configured, SSL active |
 | GitHub / CI | ✅ Complete | Auto-deploys on push to main |
 | Site design | ✅ Complete | Full single-page site live |
-| Navigation | ✅ Complete | SV monogram, centered links, scroll shadow |
+| Navigation | ✅ Complete | Transparent over hero, frosted on scroll, logo swaps white↔dark |
+| Hero background | ✅ Complete | Blush-colorized photo, centered |
 | Gallery photos | ✅ Complete | 6 photos in editorial grid |
 | About photo | ✅ Complete | saravalarezo-about.jpg in place |
-| Favicon | ✅ Complete | SV monogram PNG |
+| Favicon | ✅ Complete | SV monogram PNG (blush bg) |
 | Square booking | ✅ Complete | Embed code live |
+| .gitignore | ✅ Complete | node_modules/, .env, .DS_Store, zips/, creative/ |
 | Bio / copy | ⏳ Placeholder | Sara to write actual copy |
 | Testimonials | ⏳ Placeholder | Replace with real client quotes |
-| Pricing | ⏳ Placeholder | Miami market estimates — Sara to confirm |
+| Pricing | ⏳ Placeholder | Social $150+ confirmed — rest TBD |
 | Licensed fonts | 🔲 Pending | Awaiting PF Marlet + Neue Haas font files |
 
 ---
@@ -86,7 +88,6 @@ Then open [http://localhost:3000](http://localhost:3000).
 - [ ] Replace placeholder testimonials with real client quotes
 - [ ] Verify TikTok handle
 - [ ] Add licensed font files to `public/fonts/` and update CSS variables
-- [ ] Add `zips/` to `.gitignore`
 - [ ] Add `og:image` meta tag for social sharing previews
 - [ ] Set up analytics (Google Analytics or Plausible)
 - [ ] Consider a contact form (Formspree — no backend needed)

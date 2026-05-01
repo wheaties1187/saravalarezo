@@ -25,21 +25,24 @@ Technical reference for the Sara Valarezo makeup artist website. For project con
 saravalarezo/
 ├── server.js               # Express app — serves /public as static files
 ├── package.json            # start script: node server.js
-├── .gitignore              # node_modules/, .env, .DS_Store
+├── .gitignore              # node_modules/, .env, .DS_Store, zips/, creative/
 ├── README.md               # Project overview
 ├── TECH-SPEC.md            # This file — technical reference
 ├── public/
 │   ├── index.html          # Entire site — HTML, CSS, and JS in one file
 │   ├── assets/
-│   │   ├── logo-wordmark.png   # Full "SARA VALAREZO / MAKEUP ARTIST" logo
-│   │   └── logo-monogram.png   # SV monogram — used in nav + favicon
+│   │   ├── logo-wordmark.png         # Full wordmark (white bg — used in footer)
+│   │   ├── logo-wordmark-glow.png    # Transparent/glow version — used in hero
+│   │   ├── logo-monogram.png         # SV monogram dark — nav when scrolled + favicon
+│   │   └── logo-monogram-white.png   # SV monogram white — nav over hero
 │   └── images/
-│       ├── gallery-1.jpg       # through gallery-6.jpg
-│       └── saravalarezo-about.jpg
+│       ├── gallery-1.jpg through gallery-6.jpg
+│       ├── saravalarezo-about.jpg
+│       └── saravalarezo-hero-bg.jpg  # Blush-colorized hero background
 ├── docs/
-│   ├── TECH-SPEC.md        # This file
 │   └── ...                 # Brand assets, PDFs
-└── zips/                   # ⚠️ TODO: add to .gitignore
+├── creative/               # PSD/design files — gitignored, local only
+└── zips/                   # Build artifacts — gitignored
 ```
 
 ---
@@ -111,11 +114,14 @@ Monitor deployment in Railway dashboard — the service card shows build status.
 
 - 3-column CSS grid: `1fr auto 1fr`
 - Logo left (`justify-self: start`), links center (`justify-self: center`), CTA right (`justify-self: end`)
-- Scroll shadow: `.scrolled` class added at 20px scroll depth via JS
+- **Transparent by default** — background `rgba(255,255,255,0)`, links and button white
+- **On scroll (>20px):** `.scrolled` class applied — background `rgba(255,255,255,0.87)`, blur(8px), links and button switch to dark
+- **Logo swap:** `logo-monogram-white.png` over hero → `logo-monogram.png` when scrolled (via JS src swap)
+- Smooth `0.3s` transition on background, backdrop-filter, border, and box-shadow
 
 ### JavaScript
 
-- **Nav scroll shadow** — toggles `.scrolled` class on `<nav>` at 20px scroll depth
+- **Nav scroll behavior** — at 20px scroll depth: toggles `.scrolled` on `<nav>`, swaps logo src between white and dark monogram, transitions all nav colors
 - **Mobile nav toggle** — hamburger button opens/closes `#nav-links` on small screens
 - **FAQ accordion** — single-open pattern, smooth `max-height` transition
 - No frameworks, no build step — plain vanilla JS
@@ -127,19 +133,15 @@ Monitor deployment in Railway dashboard — the service card shows build status.
 | Issue | Fix |
 |---|---|
 | Footer `<nav>` inheriting fixed positioning from main nav CSS | Changed footer nav to `<div class="footer-links">` |
-| Nav links white-on-white (invisible against white nav background) | Added `color: var(--color-black) !important` to `.nav-links a` |
+| Nav links white-on-white (invisible against white nav background) | Nav now starts transparent with white links over hero; transitions to dark on scroll |
 | Nav links spreading full page width | Switched nav from `flex / space-between` to 3-column CSS grid |
-| Duplicate "Book" link + two "Book Now" buttons in nav | Removed inline Book link and button from nav-links — kept only top-right CTA |
+| Duplicate "Book" link + two "Book Now" buttons in nav | Removed inline Book link and button — kept only top-right CTA |
+| PSD file in `creative/` folder bloating git pushes (3.71MB, HTTP 400 errors) | Purged from git history with `git filter-branch`, added `creative/` to `.gitignore` |
 
 ---
 
 ## Pending Technical Tasks
 
-- [ ] Add `zips/` to `.gitignore`:
-  ```bash
-  echo 'zips/' >> .gitignore
-  git add .gitignore && git commit -m "gitignore zips" && git push
-  ```
 - [ ] Install licensed fonts: add files to `public/fonts/`, add `@font-face` to CSS, update `--font-display` and `--font-body` variables
 - [ ] Optimize gallery images for web — compress to <500KB each (consider `sharp` or `imagemin`)
 - [ ] Add `og:image` and social meta tags to `<head>` for link preview sharing
